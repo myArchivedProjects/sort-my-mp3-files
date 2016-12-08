@@ -1,0 +1,5 @@
+twisted
+findtools
+ipython
+zmq
+pytaglib
