@@ -36,13 +36,6 @@ def update_mp3_location(filename, artist, album, title):
 
     _, extension = os.path.splitext(filename)
 
-    print "moving %s to %s/%s/%s" % (
-        filename,
-        artist,
-        album,
-        title
-    )
-
     shutil.move(filename, "%s/%s/%s%s" % ( artist, album, title, extension))
 
 
