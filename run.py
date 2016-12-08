@@ -76,16 +76,16 @@ def server(port="5556"):
             artist = mp3file.tags['ARTIST'][0]
             album = mp3file.tags['ALBUM'][0]
             title = mp3file.tags['TITLE'][0]
+
+            update_mp3_location(
+                filename,
+                artist,
+                album,
+                title
+            )
         except Exception as e:
             socket.send_json("ERROR: %s" % e)
             continue
-
-        update_mp3_location(
-            filename,
-            artist,
-            album,
-            title
-        )
 
         socket.send_json("OK")
 
