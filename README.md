@@ -1,4 +1,5 @@
 Some python code to re-organize my mp3 collection.
+
 It grabs a directory with a large number of unsorted files, 
 checks their ID tags and re-arranges them based on /artist/album/title
 
@@ -10,7 +11,7 @@ on nixos:
 
 ```
     nix-shell
-    python run.python
+    python run.py
 ```
 
 on other beasts:
@@ -19,5 +20,5 @@ on other beasts:
 virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
-python run.sh
+python run.py
 ```
