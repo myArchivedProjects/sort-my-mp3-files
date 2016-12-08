@@ -61,7 +61,6 @@ def client(ports=["5556"]):
         print "Sending request ", f,"..."
         socket.send(f)
 
-        # do we care about a response ?
         message = socket.recv()
         print "Received reply ", f, "[", message, "]"
 
@@ -79,10 +78,14 @@ def server(port="5556"):
 
         filename = msg
 
-        mp3file = taglib.File(filename)
-        artist = mp3file.tags['ARTIST'][0]
-        album = mp3file.tags['ALBUM'][0]
-        title = mp3file.tags['TITLE'][0]
+        try:
+            mp3file = taglib.File(filename)
+            artist = mp3file.tags['ARTIST'][0]
+            album = mp3file.tags['ALBUM'][0]
+            title = mp3file.tags['TITLE'][0]
+        except Exception as e:
+            socket.send_json("ERROR: %s" % e)
+
 
         update_mp3_location(
             filename,
