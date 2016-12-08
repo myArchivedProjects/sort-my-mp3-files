@@ -85,7 +85,7 @@ def server(port="5556"):
             title = mp3file.tags['TITLE'][0]
         except Exception as e:
             socket.send_json("ERROR: %s" % e)
-
+            continue
 
         update_mp3_location(
             filename,
