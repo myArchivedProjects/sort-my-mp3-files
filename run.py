@@ -14,7 +14,8 @@ from findtools.find_files import (find_files, Match)
 
 """
 
-MP3DIR="/home/azul/git-annex/Music/"
+MP3SRCDIR="srcmp3"
+MP3DSTDIR="dstmp3"
 
 
 def mp3filelist(basedir):
@@ -32,11 +33,11 @@ def mp3filelist(basedir):
 
 def update_mp3_location(filename, artist, album, title):
     """ renames the mp3 file """
-    distutils.dir_util.mkpath("%s/%s" % (artist, album))
+    distutils.dir_util.mkpath("%s/%s/%s/%s" % (MP3DSTDIR, artist[0].upper(), artist, album))
 
     _, extension = os.path.splitext(filename)
 
-    shutil.move(filename, "%s/%s/%s%s" % ( artist, album, title, extension))
+    shutil.move(filename, "%s/%s/%s/%s/%s%s" % ( MP3DSTDIR, artist[0].upper(), artist, album, title, extension))
 
 
 def client(ports=["5556"]):
@@ -50,7 +51,7 @@ def client(ports=["5556"]):
     for port in ports:
         socket.connect ("tcp://localhost:%s" % port)
 
-    for f in mp3filelist(MP3DIR):
+    for f in mp3filelist(MP3SRCDIR):
         print "Sending request ", f,"..."
         socket.send(f)
 
