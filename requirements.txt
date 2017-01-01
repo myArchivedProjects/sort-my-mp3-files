@@ -3,3 +3,4 @@ findtools
 ipython
 zmq
 pytaglib
+gevent

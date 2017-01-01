@@ -17,6 +17,9 @@ from findtools.find_files import (find_files, Match)
 MP3SRCDIR="srcmp3"
 MP3DSTDIR="dstmp3"
 
+MP3SRCDIR="/tmp/src"
+MP3DSTDIR="/tmp/dst"
+
 
 def mp3filelist(basedir):
     """ returns a list of .mp3 files containing their full paths """
@@ -33,11 +36,26 @@ def mp3filelist(basedir):
 
 def update_mp3_location(filename, artist, album, title):
     """ renames the mp3 file """
-    distutils.dir_util.mkpath("%s/%s/%s/%s" % (MP3DSTDIR, artist[0].upper(), artist, album))
+    distutils.dir_util.mkpath(
+        "%s/%s/%s/%s" % (
+            MP3DSTDIR,
+            artist[0].upper(),
+            artist, album
+        )
+    )
 
     _, extension = os.path.splitext(filename)
 
-    shutil.move(filename, "%s/%s/%s/%s/%s%s" % ( MP3DSTDIR, artist[0].upper(), artist, album, title, extension))
+    shutil.move(
+        filename, "%s/%s/%s/%s/%s%s" % (
+            MP3DSTDIR,
+            artist[0].upper(),
+            artist,
+            album,
+            title,
+            extension
+        )
+    )
 
 
 def client(ports=["5556"]):
@@ -69,6 +87,7 @@ def server(port="5556"):
     for reqnum in range(99999):
         # Wait for next request from client
         msg = socket.recv()
+        socket.send_json("CARRY ON")
 
         filename = msg
 
@@ -85,10 +104,11 @@ def server(port="5556"):
                 title
             )
         except Exception as e:
-            socket.send_json("ERROR: %s" % e)
+            # socket.send_json("ERROR: %s" % e)
             continue
 
-        socket.send_json("OK")
+        # socket.send_json("OK")
+
 
 
 if __name__ == "__main__":

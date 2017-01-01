@@ -13,6 +13,7 @@ buildPythonPackage {
     python27Full
     python27Packages.virtualenv
     stdenv
+    pypy
     zlib ];
   src = null;
   # When used as `nix-shell --pure`
